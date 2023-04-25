@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+% Avoid hyphenation
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% Style hyperlinks
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor=red,
+  pdfborder={0 0 0}
+}
+
+\renewcommand*\contentsname{Table of Contents}
+
+\begin{document}
+\begin{sloppypar}
+
+\begin{titlepage}
+\sffamily\selectfont
+\centering
+\vspace*{7cm}
+{\includegraphics[width=5cm]{
+mynth-logo.pdf}}\\[5\baselineskip]
+\textcolor{black}{
+{\Huge Making Synthetic Assets Real}\\[2\baselineskip]
+{\Large Mynth}\\[0.5\baselineskip]
+{\large info@mynth.ai}\\[3\baselineskip]
+{\large April 2023, v1.0}
+}
+\end{titlepage}
+
+\tableofcontents
+
+\input{mynth.tex}
+
+\end{sloppypar}
+\end{document}
