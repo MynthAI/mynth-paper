@@ -130,6 +130,74 @@ the asset pools by taking advantage of price differences in various
 markets. This ensures that Mynth can continue facilitating trades for
 its users.
 
+\hypertarget{trustless-cross-chain-swaps}{%
+\subsection{Trustless Cross-chain
+Swaps}\label{trustless-cross-chain-swaps}}
+
+A common issue with centralized exchanges is the need for users to trust
+that the exchange will execute the swap as promised. Cryptocurrency
+technology aims to eliminate trust and instead focus on veriﬁcation.
+Mynth enables users to swap assets between its liquidity pools across
+blockchains without trusting centralized parties. The implementation
+consists of two versions: the version uses Cardano multisig wallets, and
+the second version employs Cardano decentralized oracles. Initially
+Mynth will launch using the ﬁrst version, and then later is intended to
+be updated to use the second version.
+
+In version one, users deposit assets into a time-locked 3 out of 5
+multisig wallet. This means that either 3 out of 5 signatures are
+required to unlock the tokens, or the user can retrieve the tokens after
+the time- lock expires. Users can choose the veriﬁers for each swap,
+with Mynth's user interface selecting veriﬁers by default. Veriﬁers are
+responsible for conﬁrming transactions on non-Cardano blockchains. To
+unlock a token, the veriﬁer checks if a transaction occurred. If the
+veriﬁer agrees, then unlocking is allowed, and the veriﬁer returns a
+signature. If 3 out of 5 veriﬁers return valid signatures, the token can
+be unlocked and transferred to Mynth's Cardano liquidity pool.
+
+For example, a user wants to swap iUSD on Cardano for USDT on Tron using
+Mynth. The user initiates the swap through Mynth's application, and
+metadata is embedded into the Cardano transaction containing necessary
+information for a third party to validate the swap. The iUSD is sent
+from the user's wallet to a Cardano multisig wallet. After validation on
+the Cardano blockchain, Mynth transfers USDT to the user's Tron wallet.
+Mynth then calls upon veriﬁers to unlock the iUSD on Cardano and
+transfer it to Mynth's Cardano iUSD liquidity pool. Veriﬁers check the
+Tron transaction and return signatures to permit the unlock. In the end,
+the user has iUSD withdrawn from their Cardano wallet and USDT deposited
+into their Tron wallet, while Mynth has iUSD deposited into their
+Cardano liquidity pool and USDT withdrawn from their Tron liquidity
+pool.
+
+In version two, Mynth uses Cardano oracles like Charli3 or Orcfax to
+verify transactions on non-Cardano blockchains. Oracle nodes
+periodically update data on the Cardano blockchain, and if consensus is
+reached among the nodes, the data is considered valid. Users initiate
+swaps on Cardano and deposit tokens into a Cardano smart contract.
+Tokens remain locked in the smart contract until on-chain data veriﬁes
+the tokens' transfer on the non-Cardano blockchain.
+
+Oracle nodes cross-reference locked tokens on Cardano with transactions
+on non-Cardano blockchains. If the cross-reference is valid, the oracle
+node marks the Cardano input transaction as valid. All validated
+transactions are concatenated, hashed, and stored on-chain. To unlock
+the tokens, the Cardano smart contract checks the oracle on-chain data
+and compares the hashes. If the hashes match, the unlock is validated
+and permitted, allowing the transfer of tokens to Mynth's Cardano
+liquidity pool.
+
+For example, a user wants to swap iUSD on Cardano for USDT on Tron using
+Mynth. The user initiates the swap through Mynth's application,
+transferring their iUSD into Mynth's smart contract. Oracles
+periodically update on-chain data. When the USDT is transferred to the
+user's wallet, the oracle marks the transaction as valid during its
+update process. Mynth then executes the smart contract's unlock feature
+to transfer the iUSD to Mynth's Cardano liquidity pool. In the end, the
+user has iUSD withdrawn from their Cardano wallet and USDT deposited
+into their Tron wallet, while Mynth has iUSD deposited into their
+Cardano liquidity pool and USDT withdrawn from their Tron liquidity
+pool.
+
 \hypertarget{swap-limits}{%
 \section{Swap Limits}\label{swap-limits}}
 
@@ -224,8 +292,6 @@ development and expansion. As the platform evolves, additional synthetic
 assets will be supported, expanding the range of trading options for
 users. Moreover, Mynth will extend its reach to other blockchains,
 broadening its appeal and utility across the cryptocurrency landscape.
-
-\pagebreak
 
 \hypertarget{mynth-roadmap-to-bridge-the-gap-between-synthetics-and-the-real-world}{%
 \section{Mynth Roadmap to Bridge the Gap Between Synthetics and the
